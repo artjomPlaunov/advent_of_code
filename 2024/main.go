@@ -14,7 +14,7 @@ type DayFunc func([]byte) (string, string)
 // solutions maps day numbers to their solving functions
 var solutions = map[int]DayFunc{
 	1: day1,
-	// 2: day2,
+	2: day2,
 	// 3: day3,
 }
 
