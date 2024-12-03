@@ -15,7 +15,7 @@ type DayFunc func([]byte) (string, string)
 var solutions = map[int]DayFunc{
 	1: day1,
 	2: day2,
-	// 3: day3,
+	3: day3,
 }
 
 func main() {
