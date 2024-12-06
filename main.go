@@ -8,6 +8,11 @@ import (
 	"strconv"
 )
 
+type T struct {
+	A int
+	B int
+}
+
 // DayFunc is the function signature that all daily solutions must follow
 type DayFunc func([]byte) (string, string)
 
@@ -18,6 +23,7 @@ var solutions = map[int]DayFunc{
 	3: day3,
 	4: day4,
 	5: day5,
+	6: day6,
 }
 
 func main() {

@@ -9,11 +9,6 @@ import (
 	"strings"
 )
 
-type T struct {
-	A int
-	B int
-}
-
 func isValidPair(order [][]int, n1, n2 int) bool {
 	fmt.Println(n1, n2)
 	for _, o := range order {
