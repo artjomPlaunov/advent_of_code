@@ -13,6 +13,15 @@ type T struct {
 	B int
 }
 
+func deepCopy(src [][]byte) [][]byte {
+	dst := make([][]byte, len(src))
+	for i := range src {
+		dst[i] = make([]byte, len(src[i]))
+		copy(dst[i], src[i])
+	}
+	return dst
+}
+
 // DayFunc is the function signature that all daily solutions must follow
 type DayFunc func([]byte) (string, string)
 
