@@ -35,6 +35,7 @@ var solutions = map[int]DayFunc{
 	6: day6,
 	7: day7,
 	8: day8,
+	9: day9,
 }
 
 func main() {
