@@ -10,6 +10,7 @@ func regionArea(grid [][]byte, visited map[T]bool, m, n, i, j int) int {
 	dirs := [][]int{
 		{-1, 0}, {0, 1}, {1, 0}, {0, -1},
 	}
+	sides := 0
 	area := 0
 	ch := grid[i][j]
 	stack := make([]T, 0)
@@ -24,6 +25,7 @@ func regionArea(grid [][]byte, visited map[T]bool, m, n, i, j int) int {
 		} else {
 			area += 1
 			visited[plot] = true
+			sides += countCorners(grid, m, n, i, j)
 		}
 		for _, d := range dirs {
 			x, y := i+d[0], j+d[1]
@@ -31,20 +33,19 @@ func regionArea(grid [][]byte, visited map[T]bool, m, n, i, j int) int {
 				if !visited[T{x, y}] {
 					stack = append(stack, T{x, y})
 				}
-			} //else {
-			//	perim += 1
-			//}
+			}
 		}
 	}
-	//return perim * area
-	return area
+	return area * sides
 }
 
-func isCorner(grid [][]byte, m, n, i, j int) bool {
+func countCorners(grid [][]byte, m, n, i, j int) int {
 	dirs := [][]int{
 		{-1, 0}, {0, 1}, {1, 0}, {0, -1},
 	}
 	ch := grid[i][j]
+	res := 0
+	// Convex corners.
 	for _i := range 4 {
 		_j := (_i + 1) % 4
 		sides := [][]int{dirs[_i], dirs[_j]}
@@ -56,31 +57,40 @@ func isCorner(grid [][]byte, m, n, i, j int) bool {
 			}
 		}
 		if cond {
-			return true
+			res += 1
 		}
 	}
-
-	return false
+	// Concave corners.
+	for _i := range 4 {
+		_j := (_i + 1) % 4
+		d1, d2 := dirs[_i], dirs[_j]
+		x1, y1 := i+d1[0], j+d1[1]
+		x2, y2 := i+d2[0], j+d2[1]
+		x3, y3 := i+d1[0]+d2[0], j+d1[1]+d2[1]
+		if inBounds(m, n, x1, y1) && inBounds(m, n, x2, y2) && inBounds(m, n, x3, y3) {
+			if grid[x1][y1] == ch && grid[x2][y2] == ch && grid[x3][y3] != ch {
+				res += 1
+			}
+		}
+	}
+	fmt.Println(i, j, res)
+	return res
 }
 
 func day12(input []byte) (string, string) {
 	grid := bytes.Split(input, []byte{'\n'})
 	m, n := len(grid), len(grid)
 	visited := make(map[T]bool)
-	sidesVisited := make(map[T]bool)
+	// True is concave, False is convex.
 	p1 := 0
 	for i := range m {
 		for j := range n {
-			//area, side := 0, 0
 			if !visited[T{i, j}] {
-				// Use part1 to get area, sides will be calculated separately.
 				p1 += regionArea(grid, visited, m, n, i, j)
-			}
-			if !sidesVisited[T{i, j}] && isCorner(grid, m, n, i, j) {
-				fmt.Println(i, j)
+
 			}
 
 		}
 	}
-	return "", ""
+	return "", fmt.Sprintf("%d", p1)
 }
