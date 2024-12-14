@@ -73,7 +73,6 @@ func countCorners(grid [][]byte, m, n, i, j int) int {
 			}
 		}
 	}
-	fmt.Println(i, j, res)
 	return res
 }
 
