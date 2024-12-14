@@ -45,7 +45,7 @@ func countCorners(grid [][]byte, m, n, i, j int) int {
 	}
 	ch := grid[i][j]
 	res := 0
-	// Convex corners.
+	// Concave corners.
 	for _i := range 4 {
 		_j := (_i + 1) % 4
 		sides := [][]int{dirs[_i], dirs[_j]}
@@ -60,7 +60,7 @@ func countCorners(grid [][]byte, m, n, i, j int) int {
 			res += 1
 		}
 	}
-	// Concave corners.
+	// Convex corners.
 	for _i := range 4 {
 		_j := (_i + 1) % 4
 		d1, d2 := dirs[_i], dirs[_j]
