@@ -11,7 +11,7 @@ import (
 
 func animate(g [][]byte, x, y int) {
 	g[x][y] = '@'
-	time.Sleep(0 * time.Millisecond)
+	time.Sleep(500 * time.Millisecond)
 	var cmd *exec.Cmd
 	cmd = exec.Command("clear")
 	cmd.Stdout = os.Stdout
@@ -98,11 +98,11 @@ func day15(input []byte) (string, string) {
 		i, j := x+d[0], y+d[1]
 		if g[i][j] == '.' {
 			x, y = i, j
-			//animate(g, x, y)
+			animate(g, x, y)
 			continue
 		}
 		if g[i][j] == '#' {
-			//animate(g, x, y)
+			animate(g, x, y)
 			continue
 		}
 		if (dir == '<') || (dir == '>') {
@@ -136,14 +136,12 @@ func day15(input []byte) (string, string) {
 			stack := make([]T, 0)
 			stack = append(stack, T{i, j})
 			stack = append(stack, otherHalf(g, T{i, j}))
-			fmt.Println(stack)
 			visited := make(map[T]bool)
 			cache := make(map[T]byte)
 			cache[T{i, j}] = '.'
 			cache[otherHalf(g, T{i, j})] = '.'
 			walls := false
 			for len(stack) > 0 && !walls {
-				fmt.Println(stack)
 				u1 := stack[len(stack)-1]
 				stack = stack[:len(stack)-1]
 				u2 := otherHalf(g, u1)
@@ -177,7 +175,7 @@ func day15(input []byte) (string, string) {
 				}
 			}
 		}
-		//animate(g, x, y)
+		animate(g, x, y)
 
 	}
 	p2 := 0
