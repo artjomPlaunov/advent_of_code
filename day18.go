@@ -55,20 +55,9 @@ func dijkstra(bytes map[T]bool) int {
 			}
 		}
 	}
-
 	heap.Push(h, N{0, 0, 0})
 	minDists[T{0, 0}] = 0
 	res := maxDist
-	// for i := range n {
-	// 	for j := range n {
-	// 		if _, ok := bytes[T{i, j}]; ok {
-	// 			fmt.Print(string('#'))
-	// 		} else {
-	// 			fmt.Print(string('.'))
-	// 		}
-	// 	}
-	// 	fmt.Println()
-	// }
 	for h.Len() > 0 {
 		u := heap.Pop(h).(N)
 		if u.X == n-1 && u.Y == n-1 {
@@ -79,7 +68,6 @@ func dijkstra(bytes map[T]bool) int {
 			continue
 		}
 		for _, d := range dirs {
-
 			x, y := u.X+d[0], u.Y+d[1]
 			if bytes[T{x, y}] {
 				continue
@@ -94,12 +82,10 @@ func dijkstra(bytes map[T]bool) int {
 }
 
 func day18(input []byte) (string, string) {
-
 	lines := bytes.Split(input, []byte{'\n'})
 	p2 := T{0, 0}
 	bytes := make(map[T]bool)
 	for _, l := range lines {
-
 		nums := strings.Split(string(l), ",")
 		n1, _ := strconv.Atoi(nums[0])
 		n2, _ := strconv.Atoi(nums[1])
@@ -108,10 +94,8 @@ func day18(input []byte) (string, string) {
 			p2 = T{n1, n2}
 			break
 		}
-		//fmt.Println(n2, n1)
 	}
-	bytes = make(map[T]bool)
-	p1 := dijkstra(bytes)
+	//p1 := dijkstra(bytes)
 
-	return fmt.Sprintf("%d", p1), fmt.Sprintf("%d,%d", p2.A, p2.B)
+	return "", fmt.Sprintf("%d,%d", p2.A, p2.B)
 }
