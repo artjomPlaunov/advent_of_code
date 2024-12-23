@@ -13,6 +13,10 @@ type T struct {
 	B int
 }
 
+type T4 struct {
+	A, B, C, D int
+}
+
 func deepCopy(src [][]byte) [][]byte {
 	dst := make([][]byte, len(src))
 	for i := range src {
@@ -46,6 +50,9 @@ var solutions = map[int]DayFunc{
 	17: day17,
 	18: day18,
 	19: day19,
+	20: day20,
+
+	22: day22,
 }
 
 func main() {
