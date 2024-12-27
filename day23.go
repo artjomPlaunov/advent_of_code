@@ -72,5 +72,5 @@ func day23(input []byte) (string, string) {
 			res = strings.Join(v, ",")
 		}
 	}
-	return fmt.Sprintf("%d", p1), fmt.Sprintf("%s", res)
+	return fmt.Sprintf("%d", p1), res
 }
